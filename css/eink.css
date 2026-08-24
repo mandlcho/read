@@ -90,10 +90,11 @@ body::after {
 
 .landing-title {
   margin: 0;
-  font-size: 24px;
+  font-size: 28px;
   font-weight: normal;
   color: var(--ink);
-  letter-spacing: 0.06em;
+  font-family: 'Courier New', Courier, monospace;
+  letter-spacing: 0.18em;
 }
 
 .landing-sub {
