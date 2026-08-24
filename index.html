@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#e8e4d8">
+  <title>E-Ink Reader</title>
+  <link rel="stylesheet" href="css/eink.css">
+</head>
+<body>
+
+<!-- Error banner -->
+<div id="error-banner"></div>
+
+<!-- ===================== LANDING ===================== -->
+<div id="screen-landing" class="screen active">
+  <div class="landing-inner">
+    <div class="landing-icon">&#128214;</div>
+    <h1 class="landing-title">E&#8202;·&#8202;Ink Reader</h1>
+
+    <!-- Saved book (shown when one exists) -->
+    <div id="saved-book-row" style="display:none; width:100%;">
+      <button class="btn-primary" id="btn-resume">Resume Reading</button>
+      <p class="saved-book-name" id="saved-book-name"></p>
+    </div>
+
+    <div class="landing-divider" id="landing-divider">or</div>
+
+    <!-- From file -->
+    <button class="btn-secondary" id="upload-btn">Open EPUB File</button>
+    <input type="file" id="epub-file-input" accept=".epub">
+
+    <!-- From URL -->
+    <div class="url-row">
+      <input type="url" id="url-input" class="url-input" placeholder="Paste EPUB URL…" autocomplete="off" autocorrect="off" spellcheck="false">
+      <button class="btn-url" id="btn-url-load">Load</button>
+    </div>
+
+    <p class="landing-note">Files are stored on your device. Nothing is uploaded.</p>
+  </div>
+</div>
+
+<!-- ===================== READER ===================== -->
+<div id="screen-reader" class="screen">
+
+  <!-- Top chrome -->
+  <header id="chrome-top">
+    <div class="chrome-top-inner">
+      <button class="chrome-btn" id="btn-menu" aria-label="Menu">&#9776;</button>
+      <span class="book-title" id="book-title"></span>
+      <button class="chrome-btn" id="btn-settings" aria-label="Settings">&#65Aa</button>
+    </div>
+  </header>
+
+  <!-- Reader viewport -->
+  <div id="reader-wrap">
+    <div id="reader"></div>
+  </div>
+
+  <!-- Bottom chrome -->
+  <footer id="chrome-bottom">
+    <div class="chrome-bottom-inner">
+      <button class="nav-btn" id="btn-prev">&#8592;</button>
+      <div class="progress-track">
+        <div class="progress-fill" id="progress-fill"></div>
+      </div>
+      <span class="progress-label" id="progress-label">0%</span>
+      <button class="nav-btn" id="btn-next">&#8594;</button>
+    </div>
+  </footer>
+
+</div><!-- /screen-reader -->
+
+<!-- ===================== TOC PANEL ===================== -->
+<div id="panel-toc" class="side-panel">
+  <div class="panel-header">
+    <span class="panel-title">Contents</span>
+    <button class="panel-close" id="toc-close">&#10005;</button>
+  </div>
+  <ul id="toc-list"></ul>
+</div>
+<div class="panel-backdrop" id="backdrop"></div>
+
+<!-- ===================== SETTINGS PANEL ===================== -->
+<div id="panel-settings" class="side-panel settings-panel">
+  <div class="panel-header">
+    <span class="panel-title">Reading Settings</span>
+    <button class="panel-close" id="settings-close">&#10005;</button>
+  </div>
+
+  <div class="settings-body">
+
+    <!-- Font size -->
+    <div class="setting-row">
+      <label class="setting-label">Font Size</label>
+      <div class="font-size-control">
+        <button class="size-btn" id="font-smaller">A&#8722;</button>
+        <span class="size-val" id="font-size-val">18</span>
+        <button class="size-btn size-btn-big" id="font-bigger">A+</button>
+      </div>
+    </div>
+
+    <!-- Font family -->
+    <div class="setting-row">
+      <label class="setting-label">Typeface</label>
+      <div class="font-family-control" id="font-family-control">
+        <button class="face-btn active" data-font="Georgia, 'Times New Roman', serif">Serif</button>
+        <button class="face-btn" data-font="'Helvetica Neue', Arial, sans-serif">Sans</button>
+        <button class="face-btn" data-font="'Courier New', Courier, monospace">Mono</button>
+      </div>
+    </div>
+
+    <!-- Line spacing -->
+    <div class="setting-row">
+      <label class="setting-label">Line Spacing</label>
+      <div class="font-family-control" id="line-spacing-control">
+        <button class="face-btn" data-spacing="1.4">Tight</button>
+        <button class="face-btn active" data-spacing="1.72">Normal</button>
+        <button class="face-btn" data-spacing="2.1">Loose</button>
+      </div>
+    </div>
+
+    <!-- Margins -->
+    <div class="setting-row">
+      <label class="setting-label">Margins</label>
+      <div class="font-family-control" id="margin-control">
+        <button class="face-btn" data-margin="8px">Narrow</button>
+        <button class="face-btn active" data-margin="32px">Normal</button>
+        <button class="face-btn" data-margin="56px">Wide</button>
+      </div>
+    </div>
+
+    <!-- Theme -->
+    <div class="setting-row">
+      <label class="setting-label">Theme</label>
+      <div class="theme-control" id="theme-control">
+        <button class="theme-btn active" data-theme="paper" style="background:#e8e4d8; color:#1a1a1a;">Paper</button>
+        <button class="theme-btn" data-theme="warm" style="background:#f5ead0; color:#2a1a00;">Warm</button>
+        <button class="theme-btn" data-theme="night" style="background:#1a1a1a; color:#c8c8c8;">Night</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script src="js/jszip.min.js"></script>
+<script src="js/epub.min.js"></script>
+<script src="js/reader.js"></script>
+</body>
+</html>
